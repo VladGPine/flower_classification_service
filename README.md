@@ -31,12 +31,42 @@ That's it. The service starts on **http://localhost:8000**.
 The model and the class list are part of the repository and are baked into the image:
 nothing is downloaded at startup, no extra setup is needed.
 
+Health:
+
 ```bash
 curl http://localhost:8000/health
 # {"status":"ok"}
+```
 
+A flower photo → `200` with `class_id`, `class_name` and 104 probabilities:
+
+```bash
 curl -F "file=@tests/data/53_sunflower.jpg" http://localhost:8000/predict
 # {"class_id":53,"class_name":"sunflower","probabilities":[...104 numbers...]}
+```
+
+Not an image → `400`:
+
+```bash
+curl -w ' %{http_code}\n' -F "file=@README.md" http://localhost:8000/predict
+# {"detail":"file is not a valid JPEG or PNG image"} 400
+```
+
+Empty file → `400`:
+
+```bash
+curl -w ' %{http_code}\n' -F "file=@/dev/null" http://localhost:8000/predict
+# {"detail":"file is empty"} 400
+```
+
+More than one photo → `400`:
+
+```bash
+curl -w ' %{http_code}\n' \
+  -F "file=@tests/data/53_sunflower.jpg" \
+  -F "file=@tests/data/53_sunflower.jpg" \
+  http://localhost:8000/predict
+# {"detail":"exactly one image is allowed"} 400
 ```
 
 ---
