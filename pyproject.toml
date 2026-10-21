@@ -1,0 +1,32 @@
+[project]
+name = "flower-service"
+version = "0.1.0"
+description = "FastAPI service for 104-class flower classification (ONNX)"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.156.2",
+    "numpy>=2.4.6",
+    "onnxruntime>=1.31.0",
+    "pillow>=13.0.0",
+    "pydantic-settings>=2.16.1",
+    "python-multipart>=0.0.32",
+    "uvicorn>=0.54.0",
+]
+
+[dependency-groups]
+dev = [
+    "httpx>=0.28.1",
+    "pytest>=9.1.1",
+    "ruff>=0.17.1",
+]
+
+[tool.ruff.format]
+quote-style = 'single'
+
+[tool.ruff.lint]
+extend-select = ['I']
+
+[tool.pytest.ini_options]
+testpaths = ['tests']
+pythonpath = ['.']
