@@ -1,11 +1,11 @@
-# Flower classifier — 104 species
+# Flower classifier
 
 A FastAPI service that takes a single flower photo and returns its species
 together with the probabilities of all 104 classes.
 
 The model is EfficientNet-B0 fine-tuned in PyTorch on the Kaggle competition
 [Petals to the Metal — Flower Classification on TPU](https://www.kaggle.com/competitions/tpu-getting-started),
-exported to ONNX and served with **onnxruntime on CPU** — no PyTorch at runtime.
+exported to ONNX and served with **onnxruntime on CPU**. No PyTorch at runtime.
 
 ---
 
